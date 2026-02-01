@@ -1,0 +1,8 @@
+build/
+bin/
+libs/
+.vscode
+imgui.ini
+.DS_Store
+.vs
+*.zip
