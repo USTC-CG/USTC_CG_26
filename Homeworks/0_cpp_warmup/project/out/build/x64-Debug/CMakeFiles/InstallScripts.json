@@ -1,0 +1,16 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/legion/OneDrive/\u684c\u9762/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/out/build/x64-Debug/cmake_install.cmake",
+		"C:/Users/legion/OneDrive/\u684c\u9762/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/out/build/x64-Debug/src/cmake_install.cmake",
+		"C:/Users/legion/OneDrive/\u684c\u9762/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/out/build/x64-Debug/src/libraries/cmake_install.cmake",
+		"C:/Users/legion/OneDrive/\u684c\u9762/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/out/build/x64-Debug/src/libraries/shared/cmake_install.cmake",
+		"C:/Users/legion/OneDrive/\u684c\u9762/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/out/build/x64-Debug/src/libraries/static/cmake_install.cmake",
+		"C:/Users/legion/OneDrive/\u684c\u9762/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/out/build/x64-Debug/src/executables/cmake_install.cmake",
+		"C:/Users/legion/OneDrive/\u684c\u9762/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/out/build/x64-Debug/src/executables/1_BasicDArray/cmake_install.cmake",
+		"C:/Users/legion/OneDrive/\u684c\u9762/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/out/build/x64-Debug/src/executables/2_EfficientDArray/cmake_install.cmake",
+		"C:/Users/legion/OneDrive/\u684c\u9762/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/out/build/x64-Debug/src/executables/4_list_Polynomial/cmake_install.cmake",
+		"C:/Users/legion/OneDrive/\u684c\u9762/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/out/build/x64-Debug/src/executables/5_map_Polynomial/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
