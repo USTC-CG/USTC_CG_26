@@ -46,8 +46,7 @@ bool Window::init()
     // Placeholder for additional initialization if needed.
     return true;
 }
-
-void Window::run()
+/
 {
     glfwShowWindow(window_);
 

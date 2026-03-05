@@ -9,12 +9,12 @@ int main(int argc, char** argv) {
 	a.PushBack(3.1);
 	a.PushBack(3.2);
 	a.Print();
-
+ 
 	a.DeleteAt(0);
 	a.Print();
 	a.InsertAt(0, 4.1);
 	a.Print();
-
+ 
 	DArray acopy = a; // 此处用到了拷贝构造函数
 	acopy.Print();
 

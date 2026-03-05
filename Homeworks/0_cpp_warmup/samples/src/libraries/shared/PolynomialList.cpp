@@ -156,3 +156,4 @@ PolynomialList::Term& PolynomialList::AddOneTerm(const Term& term) {
     }
     return *m_Polynomial.insert(itr, term);
 }
+ 

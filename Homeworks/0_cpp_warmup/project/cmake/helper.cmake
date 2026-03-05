@@ -1,6 +1,6 @@
 function(AddExeWithFile exe_name)
-  FILE(GLOB_RECURSE HEADER "*.h" )
-  FILE(GLOB_RECURSE SOURCE "*.cpp" )
+  FILE(GLOB_RECURSE HEADER CONFIGURE_DEPENDS "*.h" "*.inl" )
+  FILE(GLOB_RECURSE SOURCE CONFIGURE_DEPENDS "*.cpp" )
   message(STATUS "Header files: ${HEADER}")
   message(STATUS "Source files: ${SOURCE}")
 
