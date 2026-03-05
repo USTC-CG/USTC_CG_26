@@ -1,24 +1,17 @@
 # ninja log v6
 181	791	7944047544969529	src/executables/2_EfficientDArray/CMakeFiles/2_EfficientDArray.dir/main.cpp.obj	1537056a56ed01f1
-149	795	7944047544654785	src/executables/1_BasicDArray/CMakeFiles/1_BasicDArray.dir/main.cpp.obj	ba90046184c3fa3e
+1644	2247	7944047559612454	src/libraries/static/PolynomialMapLib.lib	7e4aa5ed58259fe1
+23	751	7944051776714301	src/executables/1_BasicDArray/CMakeFiles/1_BasicDArray.dir/main.cpp.obj	ba90046184c3fa3e
 165	797	7944047544806854	src/executables/2_EfficientDArray/CMakeFiles/2_EfficientDArray.dir/DArray.cpp.obj	f2b34e67f983650d
 31	1228	7944047543477493	src/libraries/shared/CMakeFiles/PolynomialListLib.dir/PolynomialList.cpp.obj	cdf1ac1775c4b89b
-130	1476	7944047544469000	src/executables/1_BasicDArray/CMakeFiles/1_BasicDArray.dir/DArray.cpp.obj	12233c45658d65ab
+22	758	7944048201843776	src/executables/1_BasicDArray/CMakeFiles/1_BasicDArray.dir/DArray.cpp.obj	12233c45658d65ab
 197	1543	7944047545131167	src/executables/4_list_Polynomial/CMakeFiles/4_list_Polynomial.dir/main.cpp.obj	4b384357adc08d5
 114	1643	7944047544302077	src/libraries/static/CMakeFiles/PolynomialMapLib.dir/PolynomialMap.cpp.obj	40a22e1e98f7e6c9
 212	1734	7944047545293045	src/executables/5_map_Polynomial/CMakeFiles/5_map_Polynomial.dir/test.cpp.obj	b0af772e736cf8c7
 1228	2233	7944047564697847	C:/Users/legion/OneDrive/桌面/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/bin/PolynomialListLib.dll	b7beee828641382c
 1228	2233	7944047564697847	src/libraries/shared/PolynomialListLib.lib	b7beee828641382c
 798	2247	7944047551153907	C:/Users/legion/OneDrive/桌面/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/bin/2_EfficientDArray.exe	f4e686acd8bfda05
-1644	2247	7944047559612454	src/libraries/static/PolynomialMapLib.lib	7e4aa5ed58259fe1
-1478	2523	7944047557951382	C:/Users/legion/OneDrive/桌面/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/bin/1_BasicDArray.exe	c5e6ac812c8f9d77
+753	1140	7944051784011979	C:/Users/legion/OneDrive/桌面/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/bin/1_BasicDArray.exe	c5e6ac812c8f9d77
 2234	3484	7944047565520092	C:/Users/legion/OneDrive/桌面/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/bin/4_list_Polynomial.exe	a3646cbb959f7137
 2248	3537	7944047565650004	C:/Users/legion/OneDrive/桌面/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/bin/5_map_Polynomial.exe	91c3dc1276f7035e
 21	83	7944048200787753	clean	44e920a614519ae1
-37	163	7944048201999142	src/executables/1_BasicDArray/CMakeFiles/1_BasicDArray.dir/main.cpp.obj	ba90046184c3fa3e
-22	758	7944048201843776	src/executables/1_BasicDArray/CMakeFiles/1_BasicDArray.dir/DArray.cpp.obj	12233c45658d65ab
-759	1225	7944048209216685	C:/Users/legion/OneDrive/桌面/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/bin/1_BasicDArray.exe	c5e6ac812c8f9d77
-35	832	7944051319239345	src/executables/1_BasicDArray/CMakeFiles/1_BasicDArray.dir/main.cpp.obj	ba90046184c3fa3e
-834	1381	7944051327224756	C:/Users/legion/OneDrive/桌面/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/bin/1_BasicDArray.exe	c5e6ac812c8f9d77
-23	751	7944051776714301	src/executables/1_BasicDArray/CMakeFiles/1_BasicDArray.dir/main.cpp.obj	ba90046184c3fa3e
-753	1140	7944051784011979	C:/Users/legion/OneDrive/桌面/Homework/Files/CS/Computer Graphics/Repository/USTC_CG_26/Homeworks/0_cpp_warmup/project/bin/1_BasicDArray.exe	c5e6ac812c8f9d77
