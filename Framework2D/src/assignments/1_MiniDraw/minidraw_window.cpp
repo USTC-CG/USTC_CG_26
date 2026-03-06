@@ -59,6 +59,12 @@ void MiniDraw::draw_canvas()
             std::cout << "Set shape to Freehand" << std::endl;
             p_canvas_->set_freehand();
         }
+        // new line
+        if (ImGui::Button("Clear"))
+        {
+            std::cout << "Clear canvas" << std::endl;
+            p_canvas_->clear_shape_list();
+        }
         
         // Canvas component
         ImGui::Text("Press left mouse to add shapes.");
