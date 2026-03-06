@@ -8,6 +8,7 @@
 #include "shapes/rect.h"
 #include "shapes/ellipse.h"
 #include "shapes/polygon.h"
+#include "shapes/freehand.h"
 namespace USTC_CG
 {
 void Canvas::draw()
@@ -71,7 +72,8 @@ void Canvas::set_polygon()
 
 void Canvas::set_freehand()
 {
-
+    draw_status_ = false;
+    shape_type_ = kFreehand;
 }
 
 void Canvas::clear_shape_list()
@@ -155,6 +157,11 @@ void Canvas::mouse_click_event()
                 current_shape_->add_control_point(start_point_.x, start_point_.y);
                 break;
             }
+            case USTC_CG::Canvas::kFreehand:
+            {
+                current_shape_ = std::make_shared<Freehand>(start_point_.x, start_point_.y);
+                break;
+            }
             default: break;
         }
     }
@@ -205,9 +212,8 @@ void Canvas::mouse_right_click_event()
 
 void Canvas::mouse_move_event()
 {
-    // HW1_TODO: Drawing rule for more primitives
     if (draw_status_)
-    {
+    {   
         end_point_ = mouse_pos_in_canvas();
         if (current_shape_)
         {
@@ -218,7 +224,15 @@ void Canvas::mouse_move_event()
 
 void Canvas::mouse_release_event()
 {
-    // HW1_TODO: Drawing rule for more primitives
+    if (current_shape_)
+    {
+        if (shape_type_ == USTC_CG::Canvas::kFreehand)
+        {
+            draw_status_ = false;
+            shape_list_.push_back(current_shape_);
+            current_shape_.reset();
+        }
+    }
 }
 
 ImVec2 Canvas::mouse_pos_in_canvas() const
