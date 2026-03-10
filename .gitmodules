@@ -7,3 +7,6 @@
 [submodule "Framework2D/third_party/glfw"]
 	path = Framework2D/third_party/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "Framework3D/Ruzino"]
+	path = Framework3D/Ruzino
+	url = https://github.com/SyouSanGin/Ruzino-Homework
