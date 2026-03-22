@@ -1,4 +1,6 @@
 #include "warping_widget.h"
+#include "warper/IDW_warper.h"
+#include "warper/RBF_warper.h"
 
 #include <cmath>
 #include <iostream>
@@ -134,21 +136,36 @@ void WarpingWidget::warping()
             // transfer it to (x', y') in the new image: Note: For this
             // transformation ("fish-eye" warping), one can also calculate the
             // inverse (x', y') -> (x, y) to fill in the "gaps".
-            for (int y = 0; y < data_->height(); ++y)
+            // for (int y = 0; y < data_->height(); ++y)
+            // {
+            //     for (int x = 0; x < data_->width(); ++x)
+            //     {
+            //         // Apply warping function to (x, y), and we can get (x', y')
+            //         auto [new_x, new_y] =
+            //             fisheye_warping(x, y, data_->width(), data_->height());
+            //         // Copy the color from the original image to the result
+            //         // image
+            //         if (new_x >= 0 && new_x < data_->width() && new_y >= 0 &&
+            //             new_y < data_->height())
+            //         {
+            //             std::vector<unsigned char> pixel =
+            //                 data_->get_pixel(x, y);
+            //             warped_image.set_pixel(new_x, new_y, pixel);
+            //         }
+            //     }
+            // }
+            // backward warping to avoid gaps
+            for (int y = 0; y < data_->height(); y++)
             {
-                for (int x = 0; x < data_->width(); ++x)
+                for (int x = 0; x < data_->width(); x++)
                 {
-                    // Apply warping function to (x, y), and we can get (x', y')
-                    auto [new_x, new_y] =
-                        fisheye_warping(x, y, data_->width(), data_->height());
-                    // Copy the color from the original image to the result
-                    // image
-                    if (new_x >= 0 && new_x < data_->width() && new_y >= 0 &&
-                        new_y < data_->height())
+                    auto [source_x, source_y] =
+                        fisheye_backward_warping(x, y, data_->width(), data_->height());
+
+                    if (source_x >= 0 && source_x < data_->width() && source_y >= 0 && source_y < data_->height())
                     {
-                        std::vector<unsigned char> pixel =
-                            data_->get_pixel(x, y);
-                        warped_image.set_pixel(new_x, new_y, pixel);
+                        auto pixel = get_pixel_bilinear(source_x, source_y);
+                        warped_image.set_pixel(x, y, pixel);
                     }
                 }
             }
@@ -156,16 +173,48 @@ void WarpingWidget::warping()
         }
         case kIDW:
         {
-            // HW2_TODO: Implement the IDW warping
-            // use selected points start_points_, end_points_ to construct the map
-            std::cout << "IDW not implemented." << std::endl;
+            if (start_points_.empty() || end_points_.empty()) break;
+            
+            // construct the warper
+            // let end_points be the source and start_points be the target, so we get f^-1, which avoids the gaps
+            IDWWarper warper(end_points_, start_points_);
+        
+            for (int y = 0; y < data_->height(); ++y)
+            {
+                for (int x = 0; x < data_->width(); ++x)
+                {
+                    ImVec2 source_pos = warper.warp(ImVec2(static_cast<float>(x), static_cast<float>(y)));
+                
+                    if (source_pos.x >= 0 && source_pos.x < data_->width() && source_pos.y >= 0 && source_pos.y < data_->height())
+                    {
+                        // get pixel from original image and set to new image
+                        auto pixel = get_pixel_bilinear(source_pos.x, source_pos.y);
+                        warped_image.set_pixel(x, y, pixel);
+                    }
+                }
+            }
             break;
         }
         case kRBF:
         {
-            // HW2_TODO: Implement the RBF warping
-            // use selected points start_points_, end_points_ to construct the map
-            std::cout << "RBF not implemented." << std::endl;
+            if (start_points_.empty() || end_points_.empty()) break;
+
+            RBFWarper warper(end_points_, start_points_);
+
+            for (int y = 0; y < data_->height(); ++y)
+            {
+                for (int x = 0; x < data_->width(); ++x)
+                {
+                    ImVec2 source_pos = warper.warp(ImVec2(static_cast<float>(x), static_cast<float>(y)));
+                
+                    if (source_pos.x >= 0 && source_pos.x < data_->width() && source_pos.y >= 0 && source_pos.y < data_->height())
+                    {
+                        // get pixel from original image and set to new image
+                        auto pixel = get_pixel_bilinear(source_pos.x, source_pos.y);
+                        warped_image.set_pixel(x, y, pixel);
+                    }
+                }
+            }
             break;
         }
         default: break;
@@ -277,5 +326,63 @@ WarpingWidget::fisheye_warping(int x, int y, int width, int height)
     int new_y = static_cast<int>(center_y + dy * ratio);
 
     return { new_x, new_y };
+}
+
+// input ( x', y' ), output (x, y)
+std::pair<float, float>
+WarpingWidget::fisheye_backward_warping(int x, int y, int width, int height)
+{
+    float center_x = width / 2.0f;
+    float center_y = height / 2.0f;
+    float dx = x - center_x;
+    float dy = y - center_y;
+    float distance = std::sqrt(dx * dx + dy * dy);
+
+    float original_distance = (distance * distance) / 100.0f;
+
+    if (distance == 0)
+    {
+        return { static_cast<float>(center_x), static_cast<float>(center_y) };
+    }
+    // (x, y)
+    float ratio = original_distance / distance;
+    float original_x = center_x + dx * ratio;
+    float original_y = center_y + dy * ratio;
+
+    return { original_x, original_y };
+}
+
+// bilinear interpolation function
+std::vector<unsigned char> WarpingWidget::get_pixel_bilinear(float x, float y)
+{
+    // get four neighbor pixels
+    int x0 = static_cast<int>(std::floor(x));
+    int y0 = static_cast<int>(std::floor(y));
+    int x1 = x0 + 1;
+    int y1 = y0 + 1;
+
+    // clamp the coordinates to be within high and low bounds
+    x0 = std::clamp(x0, 0, data_->width() - 1);
+    x1 = std::clamp(x1, 0, data_->width() - 1);
+    y0 = std::clamp(y0, 0, data_->height() - 1);
+    y1 = std::clamp(y1, 0, data_->height() - 1);
+
+    // get weights
+    float tx = x - std::floor(x);
+    float ty = y - std::floor(y);
+
+    // get neighbor pixel values
+    auto c00 = data_->get_pixel(x0, y0);
+    auto c10 = data_->get_pixel(x1, y0);
+    auto c01 = data_->get_pixel(x0, y1);
+    auto c11 = data_->get_pixel(x1, y1);
+
+    std::vector<unsigned char> result(3);
+    for (int i = 0; i < 3; ++i) {
+        float row1 = (1 - tx) * c00[i] + tx * c10[i];
+        float row2 = (1 - tx) * c01[i] + tx * c11[i];
+        result[i] = static_cast<unsigned char>((1 - ty) * row1 + ty * row2);
+    }
+    return result;
 }
 }  // namespace USTC_CG

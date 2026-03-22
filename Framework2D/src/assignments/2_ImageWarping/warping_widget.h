@@ -56,6 +56,11 @@ class WarpingWidget : public ImageWidget
    private:
     // A simple "fish-eye" warping function
     std::pair<int, int> fisheye_warping(int x, int y, int width, int height);
+    // The backward warping function for fisheye warping
+    std::pair<float, float> fisheye_backward_warping(int x, int y, int width, int height);
+
+    // bilinear interpolation
+    std::vector<unsigned char> get_pixel_bilinear(float x, float y);
 };
 
 }  // namespace USTC_CG

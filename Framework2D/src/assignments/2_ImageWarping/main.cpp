@@ -4,6 +4,7 @@
 
 int main()
 {
+    // init and run the application
     try
     {
         USTC_CG::ImageWarping w("Image Warping");

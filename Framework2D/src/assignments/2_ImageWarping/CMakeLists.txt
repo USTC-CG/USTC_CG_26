@@ -8,13 +8,22 @@ file(GLOB source
 add_executable(${PROJECT_NAME} ${source})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-# HW2_TODO(optional): Add Dlib support to the project
+# add dlib support to the project
 find_package(dlib QUIET)
 if(dlib_FOUND)
   message(STATUS "Dlib found")
   target_link_libraries(${PROJECT_NAME} PRIVATE dlib::dlib)
 else()
   message(STATUS "Dlib not found")
+endif()
+
+# add Eigen3 support to the project
+find_package(Eigen3 REQUIRED)
+if(Eigen3_FOUND)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Eigen3::Eigen)
+    message(STATUS "Eigen3 found at ${EIGEN3_INCLUDE_DIR}")
+else()
+    message(FATAL_ERROR "Eigen3 not found! Please install it.")
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES 
