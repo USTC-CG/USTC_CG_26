@@ -2,6 +2,7 @@
 
 #include "source_image_widget.h"
 #include "common/image_widget.h"
+#include "fuser/fuser.h"
 
 namespace USTC_CG
 {
@@ -14,7 +15,8 @@ class TargetImageWidget : public ImageWidget
     {
         kDefault = 0,
         kPaste = 1,
-        kSeamless = 2
+        kSeamless = 2,
+        kMixedGradient = 3
     };
 
     explicit TargetImageWidget(
@@ -33,6 +35,7 @@ class TargetImageWidget : public ImageWidget
     // type, you can implement seamless cloning, mix-gradient cloning, etc.
     void set_paste();
     void set_seamless();
+    void set_mixed_gradient();
 
     // The clone function
     void clone();
@@ -55,5 +58,8 @@ class TargetImageWidget : public ImageWidget
     ImVec2 mouse_position_;
     bool edit_status_ = false;
     bool flag_realtime_updating = false;
+
+    // fusers
+    std::unique_ptr<Fuser> seamless_fuser_;
 };
 }  // namespace USTC_CG

@@ -1,4 +1,5 @@
 #include "target_image_widget.h"
+#include "fuser/possion_seamless_clone.h"
 
 #include <cmath>
 
@@ -68,17 +69,13 @@ void TargetImageWidget::set_seamless()
     clone_type_ = kSeamless;
 }
 
+void TargetImageWidget::set_mixed_gradient()
+{
+    Fuser::use_mixed_gradient_ = !Fuser::use_mixed_gradient_;
+}
+
 void TargetImageWidget::clone()
 {
-    // The implementation of different types of cloning
-    // HW3_TODO: 
-    // 1. In this function, you should at least implement the "seamless"
-    // cloning labeled by `clone_type_ ==kSeamless`.
-    //
-    // 2. It is required to improve the efficiency of your seamless cloning to
-    // achieve real-time editing. (Use decomposition of sparse matrix before
-    // solve the linear system). The real-time updating (update when the mouse
-    // is moving) is only available when the checkerboard is selected. 
     if (data_ == nullptr || source_image_ == nullptr ||
         source_image_->get_region_mask() == nullptr)
         return;
@@ -119,11 +116,32 @@ void TargetImageWidget::clone()
         }
         case USTC_CG::TargetImageWidget::kSeamless:
         {
-            // HW3_TODO: You should implement your own seamless cloning. For
-            // each pixel in the selected region, calculate the final RGB color
-            // by solving Poisson Equations.
             restore();
-
+        
+            // initialize the seamless fuser
+            if (!seamless_fuser_)
+            {
+                seamless_fuser_ = std::make_unique<PossionSeamlessClone>();
+            }
+        
+            // calculate the offset between the mouse position and the source image position
+            const int offset_x =
+                static_cast<int>(mouse_position_.x) -
+                static_cast<int>(source_image_->get_position().x);
+            const int offset_y =
+                static_cast<int>(mouse_position_.y) -
+                static_cast<int>(source_image_->get_position().y);
+        
+            // fuse the source and target image using the seamless fuser
+            auto fused = seamless_fuser_->fuse(
+                *source_image_->get_data(),
+                *data_,
+                *mask,
+                offset_x,
+                offset_y
+            );
+        
+            if (fused) *data_ = *fused;
             break;
         }
         default: break;
